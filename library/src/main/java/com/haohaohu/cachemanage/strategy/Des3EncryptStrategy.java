@@ -8,10 +8,6 @@ import android.text.TextUtils;
 import com.haohaohu.cachemanage.util.Des3Util;
 import com.haohaohu.cachemanage.util.KeyStoreHelper;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-
 /**
  * Des3加密策略
  *
@@ -86,11 +82,7 @@ public class Des3EncryptStrategy implements IEncryptStrategy {
     public void createKeyStoreSecretKey() {
         try {
             KeyStoreHelper.createKeys(mContext, mContext.getPackageName());
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
