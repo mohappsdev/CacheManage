@@ -31,7 +31,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
 
-import kotlin.text.Charsets;
 import mohapps.modified.java.util.Base64;
 
 
@@ -217,14 +216,14 @@ public class KeyStoreHelper {
                 keygen.init(128);
                 SecretKey secretKey = keygen.generateKey();
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString(SecurityConstants.AES_KEY, encryptKey(alias, new String(secretKey.getEncoded(), Charsets.ISO_8859_1)));
+                editor.putString(SecurityConstants.AES_KEY, encryptKey(alias, new String(secretKey.getEncoded(), StandardCharsets.ISO_8859_1)));
                 editor.apply();
                 return secretKey;
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         } else {
-            return new SecretKeySpec(decryptKey(alias, aesKey).getBytes(Charsets.ISO_8859_1), 0, 16, SecurityConstants.KEY_ALGORITHM_AES);
+            return new SecretKeySpec(decryptKey(alias, aesKey).getBytes(StandardCharsets.ISO_8859_1), 0, 16, SecurityConstants.KEY_ALGORITHM_AES);
         }
         return null;
     }
